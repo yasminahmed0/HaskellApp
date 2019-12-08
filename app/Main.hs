@@ -18,3 +18,6 @@ main = do
   response <- api_call
   let football_data = unpack response
   batchInsert football_data
+  ageQuery
+  Prelude.putStrLn "--------------------------------------------------"
+  joinQuery
