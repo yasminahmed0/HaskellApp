@@ -39,7 +39,7 @@ delete = do
 query :: IO ()
 query = do
    D.putStrLn "BELOW ARE THE AVAILABLE QUERIES, PLEASE SELECT THE CORRESPONDING LETTER:"
-   D.putStrLn "a. defendersInvolvement\nb. mostCleanSheets\nc. englishPlayers\nd. mostInvolved\ne. frenchPlayers\nf. minutesPlayed"
+   D.putStrLn "a. Defenders Involvement\nb. Goalkeeper with most clean sheets\nc. English Players\nd. Most Involved\ne. French Players\nf. Players with less than 600 minutes played"
    D.putStrLn "OR IF YOU WOULD LIKE TO RETURN TO PREVIOUS SELECTION PRESS ANY OTHER LETTER"
    chosenQuery <- D.getLine
    case chosenQuery of
