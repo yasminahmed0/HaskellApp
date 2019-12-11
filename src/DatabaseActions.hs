@@ -145,8 +145,7 @@ mostCleanSheets = do
 deleteIdlePlayers :: IO ()
 deleteIdlePlayers = do
     conn <- connectSqlite3 "footballData.db"
-    res <- quickQuery' conn
-             "DELETE FROM Home_Statistics WHERE minutes_played <= 600" []
+    run conn "DELETE FROM Home_Statistics WHERE minutes_played < 600" []
     disconnect conn
 
 ----------------------FUNCTIONS TO CONVERT QUERY DATA TO DESIRED FORMAT --------------------------
