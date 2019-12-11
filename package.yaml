@@ -25,7 +25,6 @@ dependencies:
 - HDBC-sqlite3
 - http-conduit
 - bytestring
-- random
 
 library:
   source-dirs: src

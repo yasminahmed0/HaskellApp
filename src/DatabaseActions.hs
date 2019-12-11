@@ -15,7 +15,6 @@ import Database.HDBC
 import Database.HDBC.Sqlite3
 import Control.Monad(when)
 import Types
-import System.Random(randomRIO)
 import Data.List
 
 -- | create Player table
