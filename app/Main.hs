@@ -1,23 +1,53 @@
-{--module Main where
-
-import Lib--}
-
 {-# LANGUAGE OverloadedStrings #-}
 module Main where
 
 import ApiRequest
-import Lib
-import Data.ByteString.Char8 --to handle bytestrings
-
--- main :: IO ()
--- main = someFunc
-
+import DatabaseActions
+import Data.ByteString.Char8 as D
+import JsonDumping
+import Data.String
 
 main :: IO ()
 main = do
   response <- api_call
   let football_data = unpack response
   batchInsert football_data
-  ageQuery
-  Prelude.putStrLn "--------------------------------------------------"
-  joinQuery
+  dumpPlayersJSON
+  dumpHomeStatisticsJSON
+  D.putStrLn "\nWELCOME TO OUR PROGRAM!"
+  D.putStrLn "Please check project folder to find JSON representation of Haskell data. \n"
+  userQueries
+
+-- | awaits user response before executing queries
+userQueries :: IO ()
+userQueries = do
+   D.putStrLn "\nPRESS 'q' TO QUERY THE DATABASE, 'd' TO DELETE DATA FROM THE DATABASE OR ANY OTHER LETTER TO EXIT"
+   task <- D.getLine
+   case task of
+      "q" -> query
+      "d" -> delete
+      _ -> return ()
+
+-- | deletes data from Players table
+delete :: IO ()
+delete = do
+   deleteIdlePlayers
+   D.putStrLn "Delete EXECUTED"
+   userQueries
+
+-- | offers users flexibility to select query of choice
+query :: IO ()
+query = do
+   D.putStrLn "BELOW ARE THE AVAILABLE QUERIES, PLEASE SELECT THE CORRESPONDING LETTER:"
+   D.putStrLn "a. defendersInvolvement\nb. mostCleanSheets\nc. englishPlayers\nd. mostInvolved\ne. frenchPlayers\nf. minutesPlayed"
+   D.putStrLn "OR IF YOU WOULD LIKE TO RETURN TO PREVIOUS SELECTION PRESS ANY OTHER LETTER"
+   chosenQuery <- D.getLine
+   case chosenQuery of
+      "a" -> defendersInvolvement
+      "b" -> mostCleanSheets
+      "c" -> englishPlayersHighStats
+      "d" -> mostInvolved
+      "e" -> frenchPlayers
+      "f" -> minutesPlayed
+      _ -> D.putStrLn "Invalid"
+   userQueries
